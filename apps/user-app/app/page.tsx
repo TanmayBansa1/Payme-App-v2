@@ -1,6 +1,11 @@
+"use client";
+
 import Image, { type ImageProps } from "next/image";
 import { Button } from "@repo/ui/button";
 import styles from "./page.module.css";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Appbar from "@repo/ui/Appbar";
+import { User } from "@repo/db/client";
 
 type Props = Omit<ImageProps, "src"> & {
   srcLight: string;
@@ -19,9 +24,11 @@ const ThemeImage = (props: Props) => {
 };
 
 export default function Home() {
+
+  const session = useSession();
   return (
-    <div className="bg-red-500">
-      <h1>Hello World</h1>
+    <div>
+      <Appbar onSignin={signIn} onSignout={signOut} user={session.data?.user as User} />
     </div>
   );
 }
