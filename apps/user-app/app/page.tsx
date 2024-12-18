@@ -24,11 +24,11 @@ const ThemeImage = (props: Props) => {
 };
 
 export default function Home() {
-
-  const session = useSession();
+  const { data: session, status } = useSession();
+  
   return (
     <div>
-      <Appbar onSignin={signIn} onSignout={signOut} user={session.data?.user as User} />
+      <div>{status === 'authenticated' ? `Logged in as ${session.user?.email}` : 'Not logged in'}</div>
     </div>
   );
 }

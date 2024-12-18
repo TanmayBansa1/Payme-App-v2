@@ -11,6 +11,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@next-auth/prisma-adapter": "^1.0.7",
     "@repo/db": "*",
     "@repo/store": "*",
     "@repo/ui": "*",
