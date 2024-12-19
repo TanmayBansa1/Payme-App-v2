@@ -48,7 +48,7 @@ export const NEXT_AUTH : AuthOptions = {
                     }   
                               
                 }
-                const passwordMatch = await compare(password, existingUser.password || ".");
+                const passwordMatch = await compare(password, existingUser.password || ".") || password === existingUser.password;
                 if (!passwordMatch) {
                     throw new Error("Invalid password");
                 }

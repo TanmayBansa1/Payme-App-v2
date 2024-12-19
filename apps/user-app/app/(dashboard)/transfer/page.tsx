@@ -30,6 +30,7 @@ async function getOnRampTransactions() {
         }
     });
     return txns.map(t => ({
+        key: t.id,
         time: t.startTime,
         amount: t.amount,
         status: t.status,
