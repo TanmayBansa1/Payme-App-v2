@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 app.use('/hdfcwebhook', async (req, res) => {
 
     // this is info you recieve from the bank
-    // you need to validate the request check if its actually hdfc use a webhook signature/secret
+    // you need to validate the request check if its actually hdfc, use a webhook signature/secret
     const paymentInfo = {
         amount: req.body.amount,
         token: req.body.token,

@@ -5,7 +5,20 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "types": [
+      "node",
+      "express",
+      "connect"
+    ],
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "incremental": true,
+    "resolveJsonModule": true
   },
   "include": [
     "**/*.ts",

@@ -6,6 +6,7 @@ import styles from "./page.module.css";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Appbar from "@repo/ui/Appbar";
 import { User } from "@repo/db/client";
+import AppbarClient from "../components/AppbarClient";
 
 type Props = Omit<ImageProps, "src"> & {
   srcLight: string;
@@ -28,7 +29,7 @@ export default function Home() {
   
   return (
     <div>
-      <div>{status === 'authenticated' ? `Logged in as ${session.user?.email}` : 'Not logged in'}</div>
+      <div>{status === 'authenticated' ? `Logged in as ${session.user?.id}` : 'Not logged in'}</div>
     </div>
   );
 }
