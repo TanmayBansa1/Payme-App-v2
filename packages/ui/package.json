@@ -7,8 +7,8 @@
     ".": "./src/index.ts",
     "./button": "./src/button.tsx",
     "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx",
-    "./Appbar": "./src/Appbar.tsx"
+    "./Appbar": "./src/Appbar.tsx",
+    "./Textinput": "./src/Textinput.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -19,8 +19,11 @@
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@turbo/gen": "^1.12.4",
+    "@types/connect": "^3.4.38",
+    "@types/express": "^5.0.0",
+    "@types/express-serve-static-core": "^5.0.2",
     "@types/node": "^20.11.24",
-    "@types/react": "18.3.0",
+    "@types/react": "^18.3.0",
     "@types/react-dom": "18.3.1",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
@@ -29,6 +32,7 @@
   },
   "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@repo/db": "*"
   }
 }

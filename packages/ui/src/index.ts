@@ -1,4 +1,4 @@
-export * from './button.js';
-export * from './card.js';
-export * from './code.js';
-export * from './Appbar.js';
+export * from "./button";
+export * from "./card";
+export { default as Appbar } from "./Appbar";
+export { default as Textinput } from "./Textinput";

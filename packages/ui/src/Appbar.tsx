@@ -13,7 +13,7 @@ export default function Appbar({
     user: User | null | undefined
 }) {
     return <div className="flex justify-between p-4">
-        <div className="text-2xl font-bold">
+        <div className="text-3xl font-bold text-amber-950">
             PayMe
         </div>
         <div>
