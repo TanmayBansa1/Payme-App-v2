@@ -68,7 +68,7 @@ export default function Addmoney(){
                 </select>
             </div>
             <div className="mx-4 my-4 flex justify-center w-72">
-                <Button onClick={handleAddMoney}>Add Money</Button>
+                <Button onClick={handleAddMoney}>{isLoading ? "Processing..." : "Add Money"}</Button>
             </div>
           </Card>
     </div>
