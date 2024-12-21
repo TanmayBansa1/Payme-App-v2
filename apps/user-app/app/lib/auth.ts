@@ -42,6 +42,13 @@ export const NEXT_AUTH : AuthOptions = {
                                 authType: "Phone",
                             }
                         })
+                        const userBalance = await prisma.balance.create({
+                            data: {
+                                userId: user.id,
+                                amount: 0,
+                                locked: 0
+                            }
+                        })
                         return user;
                     }   catch(e){
                         throw new Error("User not found");

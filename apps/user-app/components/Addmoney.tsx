@@ -20,6 +20,7 @@ export default function Addmoney(){
     const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl);
     const [bank, setBank] = useState(SUPPORTED_BANKS[0]?.name);
     const session = useSession();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleAddMoney = async () => {
         try {
@@ -35,6 +36,8 @@ export default function Addmoney(){
             });
 
             toast.success("Transaction created successfully");
+            setIsLoading(false);
+            setAmount(0);
             //redirecturl?token=result.token 
             window.location.href = redirectUrl || "";
         } catch (error) {

@@ -34,7 +34,8 @@ async function getOnRampTransactions() {
         time: t.startTime,
         amount: t.amount,
         status: t.status,
-        provider: t.provider
+        provider: t.provider,
+        message: "Deposited"
     }))
 }
 
@@ -46,12 +47,12 @@ export default async function TransferPage(){
     return<div className="w-full">
         <h1 className="text-5xl font-bold text-amber-900 p-8">Transfer</h1>
 
-     <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+     <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 pr-14 pl-14">
         
         
         <Addmoney></Addmoney>
-        <Transactions txns={txns}></Transactions>
         <ShowBalance amount={amount} locked={locked}></ShowBalance>
+        <Transactions txns={txns}></Transactions>
     
     </div>
     </div>

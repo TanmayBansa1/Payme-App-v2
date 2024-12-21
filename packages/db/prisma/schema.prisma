@@ -17,6 +17,8 @@ model User {
   authType  AuthType
   onRampTransactions OnRampTransactions[]
   balance          Balance[]
+  p2pTransactions P2PTransaction[] @relation("sender")
+  p2pTransactionsReceived P2PTransaction[] @relation("recipient")
 }
 
 model Merchant {
@@ -59,4 +61,21 @@ model Balance {
   amount   Int
   locked    Int
   user      User     @relation(fields: [userId], references: [id])
+}
+model P2PTransaction {
+  id         String   @id @default(uuid())
+  senderId   String
+  recipientId String
+  amount     Float
+  status     P2PTransactionStatus
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  sender     User     @relation(name: "sender", fields: [senderId], references: [id])
+  recipient  User     @relation(name: "recipient", fields: [recipientId], references: [id])
+}
+
+enum P2PTransactionStatus {
+  Processing
+  Success
+  Failed
 }

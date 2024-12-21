@@ -8,7 +8,7 @@ export default function ShowBalance({
   locked: number | undefined;
 }): JSX.Element {
   return (
-    <div>
+    <div className="w-full pr-16">
       <Card title={"Balance"}>
         <div className="flex justify-between border-b border-slate-300 pb-2 mt-2">
           <div>Unlocked balance</div>
