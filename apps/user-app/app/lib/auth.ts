@@ -77,14 +77,18 @@ export const NEXT_AUTH : AuthOptions = {
                 });
 
                 if (!existingUser) {
-                    await prisma.user.create({
+                    const newUser = await prisma.user.create({
                         data: {
+                            id: user.id,
                             email: user.email,
                             name: user.name,
                             number: user.email || "", 
                             authType: "Google"
                         }
                     });
+                    user.id = newUser.id;
+                } else {
+                    user.id = existingUser.id;
                 }
             }
             if(account?.provider === "github"){
@@ -92,23 +96,27 @@ export const NEXT_AUTH : AuthOptions = {
                     where:{
                         email: user.email
                     }   
-                })
+                });
                 if(!existingUser){
-                    await prisma.user.create({
+                    const newUser = await prisma.user.create({
                         data: {
+                            id: user.id,
                             email: user.email,
                             name: user.name,
                             number: user.email || "",
                             authType: "Github"
                         }
-                    })
+                    });
+                    user.id = newUser.id;
+                } else {
+                    user.id = existingUser.id;
                 }
             }
             return true;
         },
         async jwt({token, user}:{token: JWT, user: User | AdapterUser}){
             if(user){
-                token.sub = user.id
+                token.sub = user.id;
             }   
             return token;
         },

@@ -1,35 +1,14 @@
-"use client";
 
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Appbar from "@repo/ui/Appbar";
-import { User } from "@repo/db/client";
-import AppbarClient from "../components/AppbarClient";
+import { getServerSession } from "next-auth";
+import { NEXT_AUTH } from "./lib/auth";
+import { redirect } from "next/navigation";
 
-type Props = Omit<ImageProps, "src"> & {
-  srcLight: string;
-  srcDark: string;
-};
-
-const ThemeImage = (props: Props) => {
-  const { srcLight, srcDark, ...rest } = props;
-
-  return (
-    <>
-      <Image {...rest} src={srcLight} className="imgLight" />
-      <Image {...rest} src={srcDark} className="imgDark" />
-    </>
-  );
-};
-
-export default function Home() {
-  const { data: session, status } = useSession();
+export default async function Home() {
+  const session = await getServerSession(NEXT_AUTH);
   
-  return (
-    <div>
-      <div>{status === 'authenticated' ? `Logged in as ${session.user?.id}` : 'Not logged in'}</div>
-    </div>
-  );
+  if(session?.user){
+    return redirect("/dashboard");
+  }else{
+    return redirect("/api/auth/signin");
+  }
 }

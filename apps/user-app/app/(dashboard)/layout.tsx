@@ -8,6 +8,7 @@ export default function Layout({children}: {children: React.ReactNode}){
             <SidebarElement icon={<HomeIcon/>} title="Home" href="/dashboard" />
             <SidebarElement icon={<TransferIcon/>} title="Transfer" href="/transfer" />
             <SidebarElement icon={<TransactionsIcon/>} title="Transactions" href="/transactions" />  
+            <SidebarElement icon={<P2PIcon/>} title="P2P Transfer" href="/p2p" />  
         </div>
         <div className="flex-1">
             {children}
@@ -31,4 +32,7 @@ function TransactionsIcon() {
     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
   </svg>
   
+}
+function P2PIcon() {
+    return <svg className="h-6 w-6 text-red-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  stroke-linejoin="round">  <polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>
 }

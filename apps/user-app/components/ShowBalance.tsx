@@ -20,7 +20,7 @@ export default function ShowBalance({
         </div>
         <div className="flex justify-between border-b border-slate-300 py-2">
           <div>Total Balance</div>
-            <div>{ (locked && amount) ? (locked + amount) / 100 : 0} INR</div>
+          <div>{((locked || 0) + (amount || 0)) / 100} INR</div>
         </div>
       </Card>
     </div>

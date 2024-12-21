@@ -1,18 +1,24 @@
 {
   "name": "bank_webhook_handler",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm run build && npm run start",
+    "build": "npx esbuild ./src/index.ts --platform=node --bundle --outfile=dist/index.js",
+    "start": "node dist/index.js",
+    "check-dist": "ls dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@repo/db": "*",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
     "@types/express": "^5.0.0",
-    "esbuild": "^0.24.0",
-    "express": "^4.21.2",
-    "@repo/db": "*"
+    "esbuild": "^0.24.2",
+    "typescript": "^5.0.0"
   }
 }

@@ -13,7 +13,7 @@ export default function Transactions({txns}:{txns: {key: string,time: Date, amou
                 </div>
             </div>
             <div className="flex flex-col justify-center pr-16">
-                + Rs {t.amount / 100}
+                + Rs {t.amount / 100} 
             </div>
 
         </div>)}
