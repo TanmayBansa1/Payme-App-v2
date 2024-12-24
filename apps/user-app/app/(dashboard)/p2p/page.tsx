@@ -33,7 +33,7 @@ async function getp2pTransactions() {
             recipientId: session?.user?.id
         }
     });
-    return [...senttxns, ...receivedtxns].map(t => ({
+    return [...senttxns, ...receivedtxns].map((t:{id:string, createdAt:Date, amount:number, status:string, senderId:string, recipientId:string}) => ({
         key: t.id,
         time: t.createdAt,
         amount: t.amount,
