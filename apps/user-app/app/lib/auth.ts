@@ -94,6 +94,13 @@ export const NEXT_AUTH : AuthOptions = {
                             authType: "Google"
                         }
                     });
+                    await prisma.balance.create({
+                        data: {
+                            userId: user.id,
+                            amount: 0,
+                            locked: 0
+                        }
+                    })
                     user.id = newUser.id;
                 } else {
                     user.id = existingUser.id;
@@ -115,6 +122,13 @@ export const NEXT_AUTH : AuthOptions = {
                             authType: "Github"
                         }
                     });
+                    await prisma.balance.create({
+                        data: {
+                            userId: user.id,
+                            amount: 0,
+                            locked: 0
+                        }
+                    })
                     user.id = newUser.id;
                 } else {
                     user.id = existingUser.id;
