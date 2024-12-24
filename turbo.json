@@ -4,9 +4,21 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET", "NEXTAUTH_SECRET"],
+      "env": [
+        "GOOGLE_CLIENT_ID", 
+        "GOOGLE_CLIENT_SECRET", 
+        "GITHUB_CLIENT_ID", 
+        "GITHUB_CLIENT_SECRET", 
+        "NEXTAUTH_SECRET",
+        "DATABASE_URL",
+        "NEXTAUTH_URL"
+      ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [
+        ".next/**", 
+        "!.next/cache/**",
+        "dist/**"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
