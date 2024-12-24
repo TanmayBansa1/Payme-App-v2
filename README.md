@@ -1,81 +1,122 @@
-# Turborepo starter
+# PayMe - Digital Wallet Application
 
-This is an official starter Turborepo.
+A modern digital wallet application built with Next.js, TypeScript, and Prisma, featuring real-time transactions, authentication, and a clean UI.
 
-## Using this example
+## Features
 
-Run the following command:
+### User Features
+- 💳 Add Money via Bank Transfer, uses dummy bank api to get the token
+  - Support for multiple banks (SBI, HDFC)
+  - Real-time transaction status
+- 💸 P2P Money Transfer
+  - Transfer to phone number or email
+  - Instant transfer between users
+- 📊 Transaction History
+  - View all transactions (deposits and transfers)
+  - Real-time status updates
+- 🔒 Multi-provider Authentication
+  - Phone Number + Password
+  - Google OAuth
+  - GitHub OAuth
+- 💰 Balance Management
+  - View current balance
+  - Track locked and unlocked funds
+  - Real-time balance updates
 
-```sh
-npx create-turbo@latest
+### Technical Stack
+- 🏗️ Monorepo with Turborepo
+- ⚛️ Next.js 14 with App Router
+- 🔄 Server Actions for API endpoints
+- 🗃️ PostgreSQL with Prisma ORM
+- 🔑 NextAuth.js for authentication
+- 🎨 TailwindCSS for styling
+- 📦 Shared UI component library
+
+## Local Setup
+
+### Prerequisites
+- Node.js 18+
+- PostgreSQL
+- npm (recommended)
+
+### Step 1: Clone and Install
+```bash
+git clone <repository-url>
+cd payme
+npm install
 ```
 
-## What's inside?
+### Step 2: Environment Setup
+Create `.env` in `apps/user-app`:
+```env
+DATABASE_URL="postgresql://username:password@localhost:5432/payme"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key"
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+# OAuth Credentials
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+GITHUB_CLIENT_ID="your-github-client-id"
+GITHUB_CLIENT_SECRET="your-github-client-secret"
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
+### Step 3: Database Setup
+```bash
+cd packages/db
+npm prisma generate
+npm prisma db push
 ```
 
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+### Step 4: Start Development
+```bash
+# From root directory
+npm dev
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+The app will be available at:
+- User App: `http://localhost:3000`
+- Merchant App: `http://localhost:3001`
+- Bank Webhook Handler: `http://localhost:3002`
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
+## Project Structure
 ```
-npx turbo link
+├── apps/
+│   ├── user-app/          # Main user application
+│   ├── merchant-app/      # Merchant dashboard
+│   └── bank_webhook_handler/ # Payment webhook processor
+├── packages/
+│   ├── ui/               # Shared UI components
+│   ├── db/               # Database and Prisma schema
+│   └── eslint-config/    # Shared ESLint configuration
 ```
 
-## Useful Links
+## Key Components
+- `AppbarClient`: Navigation and authentication UI
+- `P2P`: Peer-to-peer transfer interface
+- `Transactions`: Transaction history display
+- `ShowBalance`: Balance display component
+- `Addmoney`: Bank deposit interface
 
-Learn more about the power of Turborepo:
+## Environment Variables
+Required variables in `.env`:
+- `DATABASE_URL`: PostgreSQL connection string
+- `NEXTAUTH_URL`: Authentication callback URL
+- `NEXTAUTH_SECRET`: Session encryption key
+- OAuth credentials for Google and GitHub
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## Development Commands
+```bash
+# Start development servers
+npm dev
+
+# Build all apps
+npm build
+
+# Run type checking
+npm check-types
+
+# Run linting
+npm lint
+```
+
+
