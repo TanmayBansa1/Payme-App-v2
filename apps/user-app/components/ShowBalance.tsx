@@ -6,7 +6,7 @@ export default function ShowBalance({
 }: {
   amount: number | undefined;
   locked: number | undefined;
-}): JSX.Element {
+}){
   return (
     <div className="w-full pr-16">
       <Card title={"Balance"}>

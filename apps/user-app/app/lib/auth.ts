@@ -42,7 +42,7 @@ export const NEXT_AUTH : AuthOptions = {
                                 authType: "Phone",
                             }
                         })
-                        const userBalance = await prisma.balance.create({
+                        await prisma.balance.create({
                             data: {
                                 userId: user.id,
                                 amount: 0,
@@ -51,6 +51,7 @@ export const NEXT_AUTH : AuthOptions = {
                         })
                         return user;
                     }   catch(e){
+                        console.log(e);
                         throw new Error("User not found");
                     }   
                               
@@ -127,7 +128,7 @@ export const NEXT_AUTH : AuthOptions = {
             }   
             return token;
         },
-        async session({ session,token}: any) {
+        async session({ session,token}:{session: any, token: JWT}) {
             if (session?.user) {
                 session.user.id = token.sub;
                 // If using database sessions

@@ -23,13 +23,24 @@ export default function Addmoney(){
     const [isLoading, setIsLoading] = useState(false);
 
     const handleAddMoney = async () => {
+
+        if(amount <= 0){
+            toast.error("Amount must be greater than 0");
+            return;
+        }
+
+        if(!bank){
+            toast.error("Please select a bank");
+            return;
+        }
+
         try {
             if (!session?.data?.user?.id) {
                 toast.error("Please sign in first");
                 return;
             }
 
-            const result = await createOnrampTransaction({
+            await createOnrampTransaction({
                 amount: amount * 100,
                 provider: bank,
                 userId: session.data.user.id

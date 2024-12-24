@@ -5,7 +5,7 @@ export default function Layout({children}: {children: React.ReactNode}){
 
     return <div className="flex border-2">
         <div className="flex flex-col w-56 min-h-screen border-r border-slate-400 pt-24 ">
-            <SidebarElement icon={<HomeIcon/>} title="Home" href="/dashboard" />
+            {/* <SidebarElement icon={<HomeIcon/>} title="Home" href="/dashboard" /> */}
             <SidebarElement icon={<TransferIcon/>} title="Transfer" href="/transfer" />
             <SidebarElement icon={<TransactionsIcon/>} title="Transactions" href="/transactions" />  
             <SidebarElement icon={<P2PIcon/>} title="P2P Transfer" href="/p2p" />  

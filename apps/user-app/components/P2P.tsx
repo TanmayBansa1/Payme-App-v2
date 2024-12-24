@@ -12,6 +12,14 @@ export default function P2P() {
   const router = useRouter();
 
   const handleTransfer = async () => {
+    if(amount <= 0){
+      toast.error("Amount must be greater than 0");
+      return;
+    }
+    if(!recipient){
+      toast.error("Recipient is required");
+      return;
+    }
     try {
       setIsLoading(true);
       await sendP2PRequest({

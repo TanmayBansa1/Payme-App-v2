@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "./providers";
-import AppbarClient from "../components/AppbarClient";
-import { Toaster } from "react-hot-toast";
+import ClientLayout from "../components/ClientLayout";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -21,7 +20,6 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
   },
-
 };
 
 export default function RootLayout({
@@ -31,12 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <Providers>
-      <body className={`${geistSans.variable} ${geistMono.variable} bg-slate-50`}>
-        <AppbarClient />
-          {children}
-        <Toaster position="top-right" />
-      </body>
+      <Providers>
+        <body className={`${geistSans.variable} ${geistMono.variable} bg-slate-50`}>
+          <ClientLayout>
+            {children}
+          </ClientLayout>
+        </body>
       </Providers>
     </html>
   );

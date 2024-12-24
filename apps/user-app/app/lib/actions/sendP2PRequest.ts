@@ -35,7 +35,7 @@ export async function sendP2PRequest({amount, recipient}: {amount: number, recip
               if (!fromBalance || fromBalance.amount < amount) {
                 throw new Error('Insufficient funds');
             }
-            const transaction = await tx.p2PTransaction.create({
+            await tx.p2PTransaction.create({
                 data:{
                     senderId: userFrom.id,
                     recipientId: userTo.id,

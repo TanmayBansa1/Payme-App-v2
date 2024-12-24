@@ -7,7 +7,7 @@ export default async function Home() {
   const session = await getServerSession(NEXT_AUTH);
   
   if(session?.user){
-    return redirect("/dashboard");
+    return redirect("/transfer");
   }else{
     return redirect("/api/auth/signin");
   }

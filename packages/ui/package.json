@@ -23,16 +23,16 @@
     "@types/express": "^5.0.0",
     "@types/express-serve-static-core": "^5.0.2",
     "@types/node": "^20.11.24",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "18.3.1",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
     "typescript": "5.5.4"
   },
   "dependencies": {
+    "@repo/db": "*",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "@repo/db": "*"
+    "react-dom": "^19.0.0"
   }
 }

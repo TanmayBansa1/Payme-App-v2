@@ -17,7 +17,7 @@ export default function Appbar({
             PayMe
         </div>
         <div>
-            {user?.email}
+            {user?.email || user?.number}
         </div>
         <div>
             {user ? <Button onClick={onSignout}>Sign Out</Button> : <Button onClick={onSignin}>Sign In</Button>}
