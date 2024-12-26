@@ -11,7 +11,9 @@
         "GITHUB_CLIENT_SECRET", 
         "NEXTAUTH_SECRET",
         "DATABASE_URL",
-        "NEXTAUTH_URL"
+        "NEXTAUTH_URL",
+        "BANK_URL",
+        "BANK_WEBHOOK_URL"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [

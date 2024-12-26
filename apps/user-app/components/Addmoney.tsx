@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { ChangeEvent, useState } from "react";
 import { createOnrampTransaction } from "../app/lib/actions/createTransaction";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const SUPPORTED_BANKS = [{
     name: "SBI",
@@ -21,8 +22,10 @@ export default function Addmoney(){
     const [bank, setBank] = useState(SUPPORTED_BANKS[0]?.name);
     const session = useSession();
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     const handleAddMoney = async () => {
+        setIsLoading(true);
 
         if(amount <= 0){
             toast.error("Amount must be greater than 0");
@@ -40,18 +43,58 @@ export default function Addmoney(){
                 return;
             }
 
-            await createOnrampTransaction({
+            const result = await createOnrampTransaction({
                 amount: amount * 100,
                 provider: bank,
                 userId: session.data.user.id
             });
 
-            toast.success("Transaction created successfully");
-            setIsLoading(false);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BANK_URL}/process-transaction`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    amount: amount*100, 
+                    userId: session.data.user.id, 
+                    token: result.token 
+                })
+            });
+            const data = await response.json();
+            
+            // Store return URL
+            const returnUrl = `${window.location.origin}/transfer`;
+            
+            // Try to open bank window
+            const bankWindow = window.open(
+                redirectUrl,
+                '_blank',
+                'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600'
+            );
+
+            if (bankWindow) {
+                toast.success("Redirecting to bank...");
+                // Set timeout to close bank window and redirect main window
+                setTimeout(() => {
+                    try {
+                        bankWindow.close();
+                        window.location.href = returnUrl;
+                    } catch (e) {
+                        console.error("Error closing window:", e);
+                    }
+                }, 5000);
+            } else {
+                // If popup was blocked, redirect in same window
+                toast.error("Popup blocked. Redirecting in same window...");
+                window.location.href = redirectUrl;
+                setTimeout(() => {
+                    window.location.href = returnUrl;
+                }, 5000);
+            }
+            
             setAmount(0);
-            //redirecturl?token=result.token 
-            window.location.href = redirectUrl || "";
+            setIsLoading(false);
+            toast.success(data.message);
         } catch (error) {
+            setIsLoading(false);
             console.error("Add money error:", error);
             toast.error(error instanceof Error ? error.message : "Failed to process transaction");
         }

@@ -32,7 +32,18 @@ export const createOnrampTransaction = async ({amount, provider, userId}: {amoun
             throw new Error("User not found");
         }
 
-        const token = (Math.random() * 1000).toString(); //irl get this token from the provider, send a request to the provider with the amount and user details and get the token
+        // const token = (Math.random() * 1000).toString(); //irl get this token from the provider, send a request to the provider with the amount and user details and get the token
+        console.log(process.env.BANK_URL);
+        const tokenResponse = await fetch(`${process.env.BANK_URL}/gettoken`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({amount, userId}) 
+        });
+        const data = await tokenResponse.json();
+        const token:string = data.token;
+        console.log(token);
+        
+
         const transaction = await prisma.onRampTransactions.create({
             data: {
                 amount,
@@ -46,7 +57,8 @@ export const createOnrampTransaction = async ({amount, provider, userId}: {amoun
 
         return {
             transactionId: transaction.id,
-            message: "Transaction created successfully"
+            message: "Transaction created successfully",
+            token   
         };
     } catch (error) {
         console.error("Transaction creation error:", error);
