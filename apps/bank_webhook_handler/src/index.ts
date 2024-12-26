@@ -1,10 +1,11 @@
 import express from "express";
 import {OnRampStatus, PrismaClient} from "@repo/db/client";
+import cors from "cors";
 const app = express();
 const prisma = new PrismaClient();
 
 app.use(express.json());
-
+app.use(cors());
 app.use('/hdfcwebhook', async (req, res) => {
 
     // this is info you recieve from the bank
