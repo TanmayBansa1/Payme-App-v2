@@ -43,6 +43,8 @@ A modern digital wallet application built with Next.js, TypeScript, and Prisma, 
    - Updates transaction status in database
    - Manages balance updates
    - Handles retry mechanism for failed webhooks
+![image](https://github.com/user-attachments/assets/7520430e-5618-4464-9b40-96370266e0b9)
+
 
 ### Transaction Flow
 1. **Payment Initiation**
