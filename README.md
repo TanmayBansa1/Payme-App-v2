@@ -23,6 +23,71 @@ A modern digital wallet application built with Next.js, TypeScript, and Prisma, 
   - Track locked and unlocked funds
   - Real-time balance updates
 
+## System Architecture
+
+### Components
+1. **User App (Port 3000)**
+   - Main application interface
+   - Handles user authentication
+   - Manages transactions and balance
+   - Communicates with Bank App for payment processing
+
+2. **Bank App (Port 3003)**
+   - Simulates bank interface
+   - Generates transaction tokens
+   - Processes payment requests
+   - Sends webhooks to notify transaction status
+
+3. **Webhook Handler (Port 3002)**
+   - Receives transaction status updates
+   - Updates transaction status in database
+   - Manages balance updates
+   - Handles retry mechanism for failed webhooks
+
+### Transaction Flow
+1. **Payment Initiation**
+   ```mermaid
+   sequenceDiagram
+   User App->>Bank App: Create transaction with amount
+   Bank App-->>User App: Return transaction token
+   User App->>Bank: Redirect to bank page
+   ```
+
+2. **Payment Processing**
+   ```mermaid
+   sequenceDiagram
+   Bank->>Webhook Handler: Send transaction status
+   Webhook Handler->>Database: Update transaction
+   Webhook Handler->>Database: Update user balance
+   ```
+
+3. **Retry Mechanism**
+   - Bank App maintains a queue for failed webhook deliveries
+   - Automatic retries with exponential backoff
+   - Maximum 5 retry attempts
+   - 60-second intervals between retries
+
+### Environment Configuration
+```env
+# User App (.env)
+NEXT_PUBLIC_BANK_URL=https://bank-app-url
+BANK_URL=https://bank-app-url
+
+# Bank App (.env)
+BANK_WEBHOOK_URL=https://webhook-handler-url
+
+# Webhook Handler (.env)
+DATABASE_URL=postgresql://...
+```
+
+### Security Features
+- Token-based transaction verification
+- Secure webhook endpoints
+- Transaction status validation
+- User authentication checks
+- Balance locking mechanism
+
+
 ### Technical Stack
 - 🏗️ Monorepo with Turborepo
 - ⚛️ Next.js 14 with App Router
@@ -118,5 +183,6 @@ npm check-types
 # Run linting
 npm lint
 ```
+
 
 
