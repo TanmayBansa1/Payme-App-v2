@@ -37,7 +37,9 @@ const RETRY_INTERVAL = 60000; // Retry every 60 seconds
 const triggerWebhook = async (payload: {token: string, amount: number, userId: string}, retries = 0) => {
   try {
     const webhookUrl = process.env.BANK_WEBHOOK_URL;
-    console.log('Attempting webhook to:', webhookUrl); // Debug log
+    console.log('Attempting webhook to:', webhookUrl); 
+    
+    fetch(`${webhookUrl}`, { method: 'GET' })// Debug log
 
     const response = await fetch(`${webhookUrl}/hdfcwebhook`, {
       method: 'POST',
